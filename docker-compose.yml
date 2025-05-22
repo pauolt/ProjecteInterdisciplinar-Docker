@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node_app
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DB_HOST: postgres
+      DB_USER: admin
+      DB_PASSWORD: admin
+      DB_NAME: mydb
+      DB_PORT: 5432
+    depends_on:
+      - postgres
+    volumes:
+      - .:/usr/src/app
+    working_dir: /usr/src/app
+    command: npm start
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:latest
+    container_name: Server-Docker
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: mydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres-config/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./postgres-config/pg_hba.conf:/etc/postgresql/pg_hba.conf
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    command: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: Server-Pgadmin
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_MAX_LOGIN_ATTEMPTS: 0
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  pgadmin_data:
