@@ -4,9 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-const sqlite3 = require('sqlite3');
 const knex = require('knex');
-
 const app = express();
 
 app.use(logger('dev'));
