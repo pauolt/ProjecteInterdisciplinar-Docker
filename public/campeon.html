@@ -5,7 +5,8 @@
   <title>Campeon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/picnic">
-  <link rel="stylesheet" href="table.css">
+  <link href="stylesheets/table.css" rel="stylesheet">
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.15/jsrender.min.js"></script>
@@ -44,7 +45,7 @@
 </script>
 
 <script id="modify_campeon_template" type="text/x-jsrender">
-  <h2>Modificar campeón: {{:campeon.nombre}}</h2>
+  <h1>Modificar campeón: {{:campeon.nombre}}</h1>
   <form id="modify_campeon_form">
     <label for="nombre">Nombre</label>
     <input type="text" id="nombre" name="nombre" value="{{:campeon.nombre}}">
@@ -70,7 +71,7 @@
 </script>
 
 <script id="add_campeon_template" type="text/x-jsrender">
-  <h2>Añadir nuevo campeón</h2>
+  <h1>Añadir nuevo campeón</h1>
   <form id="add_campeon_form">
     <label for="nombre">Nombre</label>
     <input type="text" id="nombre" name="nombre" required>
